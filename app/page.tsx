@@ -1,6 +1,5 @@
-import { User, Home as HomeIcon, Grid2X2, Mail, Sun, Code } from "lucide-react";
+import { Code } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 
 export default function Home() {
@@ -54,44 +53,6 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <nav className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="glass-panel px-4 py-3 rounded-full flex items-center gap-2 scale-90 md:scale-100 shadow-2xl ring-1 ring-white/10 bg-black/20">
-          <ul className="flex items-center gap-2 list-none m-0 p-0">
-            <li>
-              <Link href="#" className="nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 active flex items-center justify-center">
-                <span className="bg-indicator absolute inset-0 bg-white/5 group-hover:scale-100 rounded-full transition-transform scale-100"></span>
-                <HomeIcon />
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Home</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
-                <span className="bg-indicator absolute inset-0 bg-white/5 scale-0 group-hover:scale-100 rounded-full transition-transform"></span>
-                <User />
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">About</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
-                <span className="bg-indicator absolute inset-0 bg-white/5 scale-0 group-hover:scale-100 rounded-full transition-transform"></span>
-                <Grid2X2 />
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Projects</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="#" className="nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center">
-                <span className="bg-indicator absolute inset-0 bg-white/5 scale-0 group-hover:scale-100 rounded-full transition-transform"></span>
-                <Mail />
-                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Contact</span>
-              </Link>
-            </li>
-          </ul>
-          <div className="w-px h-6 bg-white/10 mx-1"></div>
-          <button className="group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300">
-            <Sun />
-          </button>
-        </div>
-      </nav>
     </>
   );
 }
