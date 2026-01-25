@@ -42,11 +42,13 @@ export default function Home() {
               with React, TypeScript, and Next.js. Based in Munich.
             </p>
             <div className="flex gap-4">
-              <button onClick={playButtonSound} className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all pointer-events-auto">
+              <button onClick={playButtonSound} className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 pointer-events-auto">
                 <span className="relative z-10 transition-colors duration-300">View Projects</span>
+                <div className="absolute inset-0 bg-lime-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
               </button>
-              <button onClick={playButtonSound} className="px-8 py-4 border-2 border-white/20 hover:border-white text-white rounded-full transition-all duration-300 pointer-events-auto">
+              <button onClick={playButtonSound} className="group relative px-8 py-4 border-2 border-white/20 hover:border-lime-400 text-white rounded-full overflow-hidden hover:scale-105 transition-all duration-300 pointer-events-auto">
                 <span className="relative z-10 transition-colors duration-300">Contact Me</span>
+                <div className="absolute inset-0 bg-lime-400/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
               </button>
             </div>
           </div>
