@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://github.com/Hasanbeyoglu", // TODO: Update URL
+    url: "https://www.ertudev.app",
     title: "Ertugrul Hasanbeyoglu | Frontend Developer",
     description: "Frontend Developer specializing in React, TypeScript, and Next.js. Based in Munich, Germany.",
     siteName: "Ertugrul Hasanbeyoglu Portfolio",
