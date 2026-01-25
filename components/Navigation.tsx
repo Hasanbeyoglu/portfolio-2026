@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { HomeIcon, User, Grid2X2, Mail } from 'lucide-react';
+import { useAudioFeedback } from '@/hooks/useAudioFeedback';
 
 export default function Navigation() {
     const pathname = usePathname();
+    const { playNavigationSound } = useAudioFeedback();
 
     const navItems = [
         { name: 'Home', href: '/', icon: HomeIcon },
@@ -24,6 +26,7 @@ export default function Navigation() {
                             <li key={item.name}>
                                 <Link
                                     href={item.href}
+                                    onClick={playNavigationSound}
                                     className={`nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center ${isActive ? 'active' : ''
                                         }`}
                                 >

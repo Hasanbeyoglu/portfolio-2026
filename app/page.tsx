@@ -2,6 +2,7 @@
 
 import { Code } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useAudioFeedback } from "@/hooks/useAudioFeedback";
 
 const InteractiveParticles = dynamic(
   () => import("@/components/InteractiveParticles"),
@@ -9,6 +10,7 @@ const InteractiveParticles = dynamic(
 );
 
 export default function Home() {
+  const { playButtonSound } = useAudioFeedback();
   return (
     <>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
@@ -41,10 +43,10 @@ export default function Home() {
               with React, TypeScript, and Next.js. Based in Munich.
             </p>
             <div className="flex gap-4">
-              <button className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all pointer-events-auto">
+              <button onClick={playButtonSound} className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden shadow-lg hover:shadow-xl transition-all pointer-events-auto">
                 <span className="relative z-10 transition-colors duration-300">View Projects</span>
               </button>
-              <button className="px-8 py-4 border-2 border-white/20 hover:border-white text-white rounded-full transition-all duration-300 pointer-events-auto">
+              <button onClick={playButtonSound} className="px-8 py-4 border-2 border-white/20 hover:border-white text-white rounded-full transition-all duration-300 pointer-events-auto">
                 <span className="relative z-10 transition-colors duration-300">Contact Me</span>
               </button>
             </div>
