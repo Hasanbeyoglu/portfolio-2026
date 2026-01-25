@@ -36,7 +36,7 @@ export default function AboutPage() {
                             <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">MUI</span>
                             <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300">Figma</span>
                         </div>
-                        <div className="bento-card glass-panel col-span-1 md:col-span-2 lg:col-span-2 row-span-1 rounded-3xl p-6 flex items-center">
+                        <div className="col-span-1 md:col-span-2 lg:col-span-2 row-span-1 rounded-3xl p-2 flex items-center">
                             <div className="flex w-full items-center justify-center gap-12">
                                 <div className="text-center">
                                     <p className="text-2xl font-bold text-accent-lime">5+</p>

@@ -15,7 +15,6 @@ export default function Home() {
     <>
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
         <section className="min-h-[85vh] flex flex-col justify-center relative section-transition translate-y-4 animate-fade-in-up" id="home">
-          {/* Background Particles - Large area behind content */}
           <div className="absolute inset-0 z-0 flex items-center justify-end overflow-hidden opacity-60">
             <div className="w-[800px] h-[800px] -mr-40">
               <InteractiveParticles imageSrc="/profile-image-effect-small.jpg" className="w-full h-full" />
@@ -51,8 +50,6 @@ export default function Home() {
               </button>
             </div>
           </div>
-
-          {/* Floating Tech Stack Card */}
           <div className="absolute bottom-20 right-10 bg-dark-card border border-white/10 p-4 rounded-xl shadow-xl backdrop-blur-md animate-bounce z-20" style={{ animationDuration: "3s" }}>
             <div className="flex items-center gap-3">
               <Code className="text-white" />
