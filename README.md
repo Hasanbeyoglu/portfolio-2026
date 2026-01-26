@@ -52,4 +52,4 @@ Deployed on Vercel with custom domain. Just push to main and it auto-deploys.
 
 ---
 
-Built by [Ertugrul Hasanbeyoglu](https://github.com/ertudev) • Munich, Germany
+Built by [Ertugrul Hasanbeyoglu](https://github.com/Hasanbeyoglu) • Munich, Germany
