@@ -4,6 +4,8 @@ My personal portfolio — built with Next.js 16 and React 19. Features interacti
 
 🔗 **Live:** [ertudev.app](https://ertudev.app)
 
+![Portfolio Screenshot](./demo.gif)
+
 ## Tech Stack
 
 - Next.js 16 (App Router)
