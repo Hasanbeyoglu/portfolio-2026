@@ -2,7 +2,7 @@
 
 My personal portfolio — built with Next.js 16 and React 19. Features interactive particle effects, smooth animations, and a dark theme.
 
-🔗 **Live:** [ertudev.app](https://ertudev.app)
+🔗 **Live:** [ertudev.app](https://www.ertudev.app)
 
 ![Portfolio Screenshot](./demo.gif)
 
