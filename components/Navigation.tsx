@@ -16,6 +16,10 @@ export default function Navigation() {
         { name: 'Contact', href: '/contact', icon: Mail },
     ];
 
+    const handleNavClick = async () => {
+        await playNavigationSound();
+    };
+
     return (
         <nav className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
             <div className="glass-panel px-4 py-3 rounded-full flex items-center gap-2 scale-90 md:scale-100 shadow-2xl ring-1 ring-white/10 bg-black/20">
@@ -26,7 +30,7 @@ export default function Navigation() {
                             <li key={item.name}>
                                 <Link
                                     href={item.href}
-                                    onClick={playNavigationSound}
+                                    onClick={handleNavClick}
                                     className={`nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center ${isActive ? 'active' : ''
                                         }`}
                                 >
