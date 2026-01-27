@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { HomeIcon, User, Grid2X2, Mail } from 'lucide-react';
 import { useAudioFeedback } from '@/hooks/useAudioFeedback';
 
 export default function Navigation() {
     const pathname = usePathname();
+    const router = useRouter();
     const { playNavigationSound } = useAudioFeedback();
 
     const navItems = [
@@ -16,8 +17,10 @@ export default function Navigation() {
         { name: 'Contact', href: '/contact', icon: Mail },
     ];
 
-    const handleNavClick = async () => {
+    const handleNavClick = async (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        e.preventDefault();
         await playNavigationSound();
+        router.push(href);
     };
 
     return (
@@ -30,7 +33,7 @@ export default function Navigation() {
                             <li key={item.name}>
                                 <Link
                                     href={item.href}
-                                    onClick={handleNavClick}
+                                    onClick={(e) => handleNavClick(e, item.href)}
                                     className={`nav-link group relative p-3 rounded-full hover:bg-white/10 transition-all duration-300 flex items-center justify-center ${isActive ? 'active' : ''
                                         }`}
                                 >
