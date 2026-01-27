@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Code } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useAudioFeedback } from "@/hooks/useAudioFeedback";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const InteractiveParticles = dynamic(
   () => import("@/components/InteractiveParticles"),
@@ -11,13 +13,15 @@ const InteractiveParticles = dynamic(
 
 export default function Home() {
   const { playButtonSound } = useAudioFeedback();
+  const isMdOrLarger = useMediaQuery("(min-width: 768px)");
+
   return (
     <>
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+      <main className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-8 pb-32">
         <section className="min-h-[85vh] flex flex-col justify-center relative section-transition translate-y-4 animate-fade-in-up" id="home">
           <div className="absolute inset-0 z-0 flex items-center justify-end overflow-hidden opacity-60">
             <div className="w-[800px] h-[800px] -mr-40">
-              <InteractiveParticles imageSrc="/profile-image-effect-small.jpg" className="w-full h-full" />
+              <InteractiveParticles imageSrc="/profile-image-effect-small.jpg" className="w-full h-full opacity-40 md:opacity-100" />
             </div>
           </div>
 
@@ -42,25 +46,27 @@ export default function Home() {
               with React, TypeScript, and Next.js. Based in Munich.
             </p>
             <div className="flex gap-4">
-              <button onClick={playButtonSound} className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 pointer-events-auto">
+              <Link href="/projects" onClick={playButtonSound} className="group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 pointer-events-auto">
                 <span className="relative z-10 transition-colors duration-300">View Projects</span>
                 <div className="absolute inset-0 bg-lime-400 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
-              </button>
-              <button onClick={playButtonSound} className="group relative px-8 py-4 border-2 border-white/20 hover:border-lime-400 text-white rounded-full overflow-hidden hover:scale-105 transition-all duration-300 pointer-events-auto">
+              </Link>
+              <Link href="/contact" onClick={playButtonSound} className="group relative px-8 py-4 border-2 border-white/20 hover:border-lime-400 text-white rounded-full overflow-hidden hover:scale-105 transition-all duration-300 pointer-events-auto">
                 <span className="relative z-10 transition-colors duration-300">Contact Me</span>
                 <div className="absolute inset-0 bg-lime-400/10 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300 ease-out"></div>
-              </button>
+              </Link>
             </div>
           </div>
-          <div className="absolute bottom-20 right-10 bg-dark-card border border-white/10 p-4 rounded-xl shadow-xl backdrop-blur-md animate-bounce z-20" style={{ animationDuration: "3s" }}>
-            <div className="flex items-center gap-3">
-              <Code className="text-white" />
-              <div>
-                <p className="text-xs text-gray-400">Tech Stack</p>
-                <p className="font-bold text-white">Modern &amp; Fast</p>
+          {isMdOrLarger && (
+            <div className="absolute bottom-20 right-10 bg-dark-card border border-white/10 p-4 rounded-xl shadow-xl backdrop-blur-md animate-bounce z-20" style={{ animationDuration: "3s" }}>
+              <div className="flex items-center gap-3">
+                <Code className="text-white" />
+                <div>
+                  <p className="text-xs text-gray-400">Tech Stack</p>
+                  <p className="font-bold text-white">Modern &amp; Fast</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </section>
       </main>
     </>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
     return (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+        <main className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-8 pb-32">
             <section id="projects" className="py-20 section-transition translate-y-4 animate-fade-in-up">
                 <h2 className="font-display text-4xl md:text-6xl font-bold mb-12 flex items-center gap-4 text-white">
                     <span className="w-12 h-1 bg-lime-400"></span> Selected Works

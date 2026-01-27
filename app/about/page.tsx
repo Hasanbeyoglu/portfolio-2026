@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
     return (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+        <main className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-8 pb-32">
             <section className="py-20 section-transition translate-y-4 animate-fade-in-up" id="about">
                 <h2 className="font-display text-4xl md:text-6xl font-bold mb-12 flex items-center gap-4 text-white">
                     <span className="w-12 h-1 bg-lime-400"></span> About Me
@@ -52,7 +52,7 @@ export default function AboutPage() {
                     </div>
 
                     <div className="bento-card col-span-1 row-span-2 rounded-3xl overflow-hidden relative group border border-white/10">
-                        <Image alt="Profile" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="/profile-image.jpg" width={500} height={500} />
+                        <Image alt="Profile" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="/profile-image.jpg" width={500} height={500} priority quality={85} />
                         <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-6">
                             <p className="font-display font-bold text-xl text-white">Design-Driven</p>
                             <p className="text-gray-400 text-sm">Developer</p>

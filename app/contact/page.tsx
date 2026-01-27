@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
     return (
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-32">
+        <main className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-8 pb-32">
             <section id="contact" className="py-20 min-h-[70vh] flex flex-col justify-center section-transition translate-y-4 animate-fade-in-up">
                 <div className="max-w-4xl mx-auto text-center">
                     <p className="text-lime-400 font-mono mb-4">What's Next?</p>
