@@ -1,9 +1,6 @@
-'use client';
-
 import { ArrowRight, MapPin, SquareCode } from 'lucide-react';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import { useState } from 'react';
 
 export const metadata: Metadata = {
     title: 'About | Ertugrul Hasanbeyoglu',
@@ -11,7 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    const [imageError, setImageError] = useState(false);
     return (
         <main className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8 py-8 pb-32">
             <section className="py-20 section-transition translate-y-4 animate-fade-in-up" id="about">
@@ -56,25 +52,15 @@ export default function AboutPage() {
                     </div>
 
                     <div className="bento-card col-span-1 row-span-2 rounded-3xl overflow-hidden relative group border border-white/10">
-                        {!imageError ? (
-                            <Image
-                                alt="Profile"
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                src="/profile-image.jpg"
-                                width={500}
-                                height={500}
-                                priority
-                                quality={85}
-                                onError={() => setImageError(true)}
-                            />
-                        ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-lime-400/20 to-white/10 flex items-center justify-center">
-                                <div className="text-center">
-                                    <div className="text-6xl mb-2">👤</div>
-                                    <p className="text-gray-400 text-sm">Image unavailable</p>
-                                </div>
-                            </div>
-                        )}
+                        <Image
+                            alt="Profile"
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            src="/profile-image.jpg"
+                            width={500}
+                            height={500}
+                            priority
+                            quality={85}
+                        />
                         <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 to-transparent p-6">
                             <p className="font-display font-bold text-xl text-white">Design-Driven</p>
                             <p className="text-gray-400 text-sm">Developer</p>
