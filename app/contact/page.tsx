@@ -1,5 +1,6 @@
-import { Github, GithubIcon, Hand, LinkedinIcon } from 'lucide-react';
+import { GithubIcon, Hand, LinkedinIcon } from 'lucide-react';
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
     title: 'Contact | Ertugrul Hasanbeyoglu',
@@ -29,18 +30,26 @@ export default function ContactPage() {
                     </a>
 
                     <div className="mt-20 flex justify-center gap-8">
-                        <a href="https://github.com/hasanbeyoglu" className="text-gray-500 hover:text-white transition-colors flex flex-col items-center gap-2 group">
+                        <Link href="https://github.com/hasanbeyoglu"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-500 hover:text-white transition-colors flex flex-col items-center gap-2 group"
+                        >
                             <span className="p-3 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
                                 <GithubIcon className="w-6 h-6 text-white opacity-70 group-hover:opacity-100 transition-all" />
                             </span>
                             <span className="text-sm">GitHub</span>
-                        </a>
-                        <a href="https://www.linkedin.com/in/ertugrulhasanbeyoglu/" className="text-gray-500 hover:text-white transition-colors flex flex-col items-center gap-2 group">
+                        </Link>
+                        <Link
+                            href="https://www.linkedin.com/in/ertugrulhasanbeyoglu/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-500 hover:text-white transition-colors flex flex-col items-center gap-2 group">
                             <span className="p-3 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors">
                                 <LinkedinIcon className="w-6 h-6 text-[#0A66C2] grayscale group-hover:grayscale-0 transition-all" />
                             </span>
                             <span className="text-sm">LinkedIn</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </section>

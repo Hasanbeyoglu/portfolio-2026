@@ -15,35 +15,48 @@ export default function CustomCursor() {
         if (!cursorDot || !cursorOutline) return;
 
         const handleMouseMove = (e: MouseEvent) => {
-            const posX = e.clientX;
-            const posY = e.clientY;
+            try {
+                const posX = e.clientX;
+                const posY = e.clientY;
 
-            cursorDot.style.left = `${posX}px`;
-            cursorDot.style.top = `${posY}px`;
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
 
-            cursorOutline.animate(
-                {
-                    left: `${posX}px`,
-                    top: `${posY}px`,
-                },
-                {
-                    duration: 500,
-                    fill: 'forwards',
-                }
-            );
+                cursorOutline.animate(
+                    {
+                        left: `${posX}px`,
+                        top: `${posY}px`,
+                    },
+                    {
+                        duration: 500,
+                        fill: 'forwards',
+                    }
+                );
+            } catch (error) {
+                // Silently handle cursor animation errors
+                console.warn('Cursor animation error:', error);
+            }
         };
 
         const handleMouseEnter = () => {
-            if (cursorOutline) {
-                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            try {
+                if (cursorOutline) {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                }
+            } catch (error) {
+                console.warn('Cursor hover error:', error);
             }
         };
 
         const handleMouseLeave = () => {
-            if (cursorOutline) {
-                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursorOutline.style.backgroundColor = 'transparent';
+            try {
+                if (cursorOutline) {
+                    cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                }
+            } catch (error) {
+                console.warn('Cursor leave error:', error);
             }
         };
 

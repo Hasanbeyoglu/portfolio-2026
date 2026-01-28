@@ -19,7 +19,11 @@ export default function Navigation() {
 
     const handleNavClick = async (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
-        await playNavigationSound();
+        try {
+            await playNavigationSound();
+        } catch (error) {
+            // Ignore audio errors
+        }
         router.push(href);
     };
 
@@ -41,7 +45,7 @@ export default function Navigation() {
                                         className={`bg-indicator absolute inset-0 bg-white/5 rounded-full transition-transform ${isActive ? 'scale-100' : 'scale-0 group-hover:scale-100'
                                             }`}
                                     ></span>
-                                    <item.icon className="w-5 h-5 text-white" />
+                                    <item.icon className="w-5 h-5 text-white" aria-label={item.name} />
                                     <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-xs font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                                         {item.name}
                                     </span>

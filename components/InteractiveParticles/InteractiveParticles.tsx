@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import Particles from './Particles';
 import InteractiveControls from './InteractiveControls';
@@ -19,6 +19,7 @@ export default function InteractiveParticles({ imageSrc, className = '' }: Inter
     const particlesRef = useRef<Particles | null>(null);
     const interactiveRef = useRef<InteractiveControls | null>(null);
     const rafRef = useRef<number | null>(null);
+    const [hasError, setHasError] = useState(false);
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -27,55 +28,63 @@ export default function InteractiveParticles({ imageSrc, className = '' }: Inter
         const width = container.clientWidth;
         const height = container.clientHeight;
 
-        // Scene
-        const scene = new THREE.Scene();
-        sceneRef.current = scene;
+        try {
+            // Scene
+            const scene = new THREE.Scene();
+            sceneRef.current = scene;
 
-        // Camera
-        const camera = new THREE.PerspectiveCamera(50, width / height, 1, 10000);
-        camera.position.z = 300;
-        cameraRef.current = camera;
+            // Camera
+            const camera = new THREE.PerspectiveCamera(50, width / height, 1, 10000);
+            camera.position.z = 300;
+            cameraRef.current = camera;
 
-        // Renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(width, height);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        container.appendChild(renderer.domElement);
-        rendererRef.current = renderer;
+            // Renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+            rendererRef.current = renderer;
 
-        // Clock
-        const clock = new THREE.Clock(true);
-        clockRef.current = clock;
+            // Clock
+            const clock = new THREE.Clock(true);
+            clockRef.current = clock;
 
-        // Interactive Controls
-        const interactive = new InteractiveControls(camera, renderer.domElement);
-        interactive.resize();
-        interactiveRef.current = interactive;
+            // Interactive Controls
+            const interactive = new InteractiveControls(camera, renderer.domElement);
+            interactive.resize();
+            interactiveRef.current = interactive;
 
-        // Calculate fovHeight
-        const fovHeight = 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * camera.position.z;
+            // Calculate fovHeight
+            const fovHeight = 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * camera.position.z;
 
-        // Particles
-        const particles = new Particles(interactive, fovHeight);
-        scene.add(particles.container);
-        particlesRef.current = particles;
+            // Particles
+            const particles = new Particles(interactive, fovHeight);
+            scene.add(particles.container);
+            particlesRef.current = particles;
 
-        // Initialize with image
-        particles.init(imageSrc);
+            // Initialize with image
+            particles.init(imageSrc);
 
-        // Animation loop
-        const animate = () => {
-            const delta = clock.getDelta();
+            // Animation loop
+            const animate = () => {
+                if (!clockRef.current || !rendererRef.current || !sceneRef.current || !cameraRef.current) return;
 
-            if (particlesRef.current) {
-                particlesRef.current.update(delta);
-            }
+                const delta = clockRef.current.getDelta();
 
-            renderer.render(scene, camera);
-            rafRef.current = requestAnimationFrame(animate);
-        };
+                if (particlesRef.current) {
+                    particlesRef.current.update(delta);
+                }
 
-        animate();
+                rendererRef.current.render(sceneRef.current, cameraRef.current);
+                rafRef.current = requestAnimationFrame(animate);
+            };
+
+            animate();
+        } catch (error) {
+            console.error('Failed to initialize InteractiveParticles:', error);
+            setHasError(true);
+            return;
+        }
 
         // Resize handler
         const handleResize = () => {
@@ -119,6 +128,19 @@ export default function InteractiveParticles({ imageSrc, className = '' }: Inter
             }
         };
     }, [imageSrc]);
+
+    if (hasError) {
+        return (
+            <div
+                className={`w-full h-full ${className} flex items-center justify-center bg-gradient-to-br from-white/5 to-transparent rounded-2xl`}
+                style={{ minHeight: '400px' }}
+            >
+                <div className="text-center text-gray-500">
+                    <p className="text-sm">3D effect unavailable</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div
