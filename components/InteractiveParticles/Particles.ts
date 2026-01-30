@@ -1,4 +1,20 @@
-import * as THREE from 'three';
+import {
+    Object3D,
+    Texture,
+    Mesh,
+    TextureLoader,
+    LinearFilter,
+    BufferAttribute,
+    InstancedBufferGeometry,
+    InstancedBufferAttribute,
+    RawShaderMaterial,
+    Vector2,
+    PlaneGeometry,
+    MeshBasicMaterial,
+    BufferGeometry,
+    Material,
+    Intersection,
+} from 'three';
 import { gsap } from 'gsap';
 import TouchTexture from './TouchTexture';
 import InteractiveControls from './InteractiveControls';
@@ -129,32 +145,32 @@ void main() {
 `;
 
 export default class Particles {
-    container: THREE.Object3D;
-    texture: THREE.Texture | null = null;
+    container: Object3D;
+    texture: Texture | null = null;
     width: number = 0;
     height: number = 0;
     numPoints: number = 0;
-    object3D: THREE.Mesh | null = null;
-    hitArea: THREE.Mesh | null = null;
+    object3D: Mesh | null = null;
+    hitArea: Mesh | null = null;
     touch: TouchTexture | null = null;
     interactive: InteractiveControls;
     fovHeight: number = 0;
-    private handlerInteractiveMove: ((e: { intersectionData: THREE.Intersection }) => void) | null = null;
+    private handlerInteractiveMove: ((e: { intersectionData: Intersection }) => void) | null = null;
 
     constructor(interactive: InteractiveControls, fovHeight: number) {
-        this.container = new THREE.Object3D();
+        this.container = new Object3D();
         this.interactive = interactive;
         this.fovHeight = fovHeight;
     }
 
     init(src: string): Promise<void> {
         return new Promise((resolve) => {
-            const loader = new THREE.TextureLoader();
+            const loader = new TextureLoader();
 
             loader.load(src, (texture) => {
                 this.texture = texture;
-                this.texture.minFilter = THREE.LinearFilter;
-                this.texture.magFilter = THREE.LinearFilter;
+                this.texture.minFilter = LinearFilter;
+                this.texture.magFilter = LinearFilter;
 
                 this.width = texture.image.width;
                 this.height = texture.image.height;
@@ -202,12 +218,12 @@ export default class Particles {
             uRandom: { value: 1.0 },
             uDepth: { value: 2.0 },
             uSize: { value: 0.0 },
-            uTextureSize: { value: new THREE.Vector2(this.width, this.height) },
+            uTextureSize: { value: new Vector2(this.width, this.height) },
             uTexture: { value: this.texture },
-            uTouch: { value: null as THREE.Texture | null },
+            uTouch: { value: null as Texture | null },
         };
 
-        const material = new THREE.RawShaderMaterial({
+        const material = new RawShaderMaterial({
             uniforms,
             vertexShader,
             fragmentShader,
@@ -215,23 +231,23 @@ export default class Particles {
             transparent: true,
         });
 
-        const geometry = new THREE.InstancedBufferGeometry();
+        const geometry = new InstancedBufferGeometry();
 
-        const positions = new THREE.BufferAttribute(new Float32Array(4 * 3), 3);
+        const positions = new BufferAttribute(new Float32Array(4 * 3), 3);
         positions.setXYZ(0, -0.5, 0.5, 0.0);
         positions.setXYZ(1, 0.5, 0.5, 0.0);
         positions.setXYZ(2, -0.5, -0.5, 0.0);
         positions.setXYZ(3, 0.5, -0.5, 0.0);
         geometry.setAttribute('position', positions);
 
-        const uvs = new THREE.BufferAttribute(new Float32Array(4 * 2), 2);
+        const uvs = new BufferAttribute(new Float32Array(4 * 2), 2);
         uvs.setXY(0, 0.0, 0.0);
         uvs.setXY(1, 1.0, 0.0);
         uvs.setXY(2, 0.0, 1.0);
         uvs.setXY(3, 1.0, 1.0);
         geometry.setAttribute('uv', uvs);
 
-        geometry.setIndex(new THREE.BufferAttribute(new Uint16Array([0, 2, 1, 2, 3, 1]), 1));
+        geometry.setIndex(new BufferAttribute(new Uint16Array([0, 2, 1, 2, 3, 1]), 1));
 
         const indices = new Uint16Array(numVisible);
         const offsets = new Float32Array(numVisible * 3);
@@ -249,28 +265,28 @@ export default class Particles {
             j++;
         }
 
-        geometry.setAttribute('pindex', new THREE.InstancedBufferAttribute(indices, 1));
-        geometry.setAttribute('offset', new THREE.InstancedBufferAttribute(offsets, 3));
-        geometry.setAttribute('angle', new THREE.InstancedBufferAttribute(angles, 1));
+        geometry.setAttribute('pindex', new InstancedBufferAttribute(indices, 1));
+        geometry.setAttribute('offset', new InstancedBufferAttribute(offsets, 3));
+        geometry.setAttribute('angle', new InstancedBufferAttribute(angles, 1));
 
-        this.object3D = new THREE.Mesh(geometry, material);
+        this.object3D = new Mesh(geometry, material);
         this.container.add(this.object3D);
     }
 
     initTouch(): void {
         if (!this.touch) this.touch = new TouchTexture();
-        (this.object3D!.material as THREE.RawShaderMaterial).uniforms.uTouch.value = this.touch.texture;
+        (this.object3D!.material as RawShaderMaterial).uniforms.uTouch.value = this.touch.texture;
     }
 
     initHitArea(): void {
-        const geometry = new THREE.PlaneGeometry(this.width, this.height, 1, 1);
-        const material = new THREE.MeshBasicMaterial({
+        const geometry = new PlaneGeometry(this.width, this.height, 1, 1);
+        const material = new MeshBasicMaterial({
             color: 0xffffff,
             wireframe: true,
             depthTest: false,
         });
         material.visible = false;
-        this.hitArea = new THREE.Mesh(geometry, material);
+        this.hitArea = new Mesh(geometry, material);
         this.container.add(this.hitArea);
     }
 
@@ -293,11 +309,11 @@ export default class Particles {
         if (!this.object3D) return;
         if (this.touch) this.touch.update();
 
-        (this.object3D.material as THREE.RawShaderMaterial).uniforms.uTime.value += delta;
+        (this.object3D.material as RawShaderMaterial).uniforms.uTime.value += delta;
     }
 
     show(time: number = 1.0): void {
-        const material = this.object3D!.material as THREE.RawShaderMaterial;
+        const material = this.object3D!.material as RawShaderMaterial;
         gsap.fromTo(material.uniforms.uSize, { value: 0.5 }, { value: 1.5, duration: time });
         gsap.to(material.uniforms.uRandom, { value: 2.0, duration: time });
         gsap.fromTo(material.uniforms.uDepth, { value: 40.0 }, { value: 4.0, duration: time * 1.5 });
@@ -307,7 +323,7 @@ export default class Particles {
 
     hide(destroy: boolean, time: number = 0.8): Promise<void> {
         return new Promise((resolve) => {
-            const material = this.object3D!.material as THREE.RawShaderMaterial;
+            const material = this.object3D!.material as RawShaderMaterial;
             gsap.to(material.uniforms.uRandom, {
                 value: 5.0,
                 duration: time,
@@ -326,15 +342,15 @@ export default class Particles {
     destroy(): void {
         if (this.object3D) {
             this.object3D.parent?.remove(this.object3D);
-            (this.object3D.geometry as THREE.BufferGeometry).dispose();
-            (this.object3D.material as THREE.Material).dispose();
+            (this.object3D.geometry as BufferGeometry).dispose();
+            (this.object3D.material as Material).dispose();
             this.object3D = null;
         }
 
         if (this.hitArea) {
             this.hitArea.parent?.remove(this.hitArea);
-            (this.hitArea.geometry as THREE.BufferGeometry).dispose();
-            (this.hitArea.material as THREE.Material).dispose();
+            (this.hitArea.geometry as BufferGeometry).dispose();
+            (this.hitArea.material as Material).dispose();
             this.hitArea = null;
         }
     }
@@ -352,7 +368,7 @@ export default class Particles {
         this.resize();
     }
 
-    onInteractiveMove(e: { intersectionData: THREE.Intersection }): void {
+    onInteractiveMove(e: { intersectionData: Intersection }): void {
         const uv = e.intersectionData.uv;
         if (this.touch && uv) this.touch.addTouch(uv);
     }

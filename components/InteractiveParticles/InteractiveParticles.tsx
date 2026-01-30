@@ -1,7 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
+import {
+    WebGLRenderer,
+    Scene,
+    PerspectiveCamera,
+    Clock,
+} from 'three';
 import Particles from './Particles';
 import InteractiveControls from './InteractiveControls';
 
@@ -12,10 +17,10 @@ interface InteractiveParticlesProps {
 
 export default function InteractiveParticles({ imageSrc, className = '' }: InteractiveParticlesProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-    const sceneRef = useRef<THREE.Scene | null>(null);
-    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-    const clockRef = useRef<THREE.Clock | null>(null);
+    const rendererRef = useRef<WebGLRenderer | null>(null);
+    const sceneRef = useRef<Scene | null>(null);
+    const cameraRef = useRef<PerspectiveCamera | null>(null);
+    const clockRef = useRef<Clock | null>(null);
     const particlesRef = useRef<Particles | null>(null);
     const interactiveRef = useRef<InteractiveControls | null>(null);
     const rafRef = useRef<number | null>(null);
@@ -30,23 +35,23 @@ export default function InteractiveParticles({ imageSrc, className = '' }: Inter
 
         try {
             // Scene
-            const scene = new THREE.Scene();
+            const scene = new Scene();
             sceneRef.current = scene;
 
             // Camera
-            const camera = new THREE.PerspectiveCamera(50, width / height, 1, 10000);
+            const camera = new PerspectiveCamera(50, width / height, 1, 10000);
             camera.position.z = 300;
             cameraRef.current = camera;
 
             // Renderer
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            const renderer = new WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(width, height);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             container.appendChild(renderer.domElement);
             rendererRef.current = renderer;
 
             // Clock
-            const clock = new THREE.Clock(true);
+            const clock = new Clock(true);
             clockRef.current = clock;
 
             // Interactive Controls

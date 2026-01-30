@@ -1,20 +1,28 @@
-import * as THREE from 'three';
+import {
+    PerspectiveCamera,
+    Plane,
+    Raycaster,
+    Vector2,
+    Vector3,
+    Object3D,
+    Intersection,
+} from 'three';
 import { EventEmitter } from 'events';
 
 export default class InteractiveControls extends EventEmitter {
-    camera: THREE.PerspectiveCamera;
+    camera: PerspectiveCamera;
     el: HTMLElement;
-    plane: THREE.Plane;
-    raycaster: THREE.Raycaster;
-    mouse: THREE.Vector2;
-    offset: THREE.Vector3;
-    intersection: THREE.Vector3;
-    objects: THREE.Object3D[];
-    hovered: THREE.Object3D | null;
-    selected: THREE.Object3D | null;
+    plane: Plane;
+    raycaster: Raycaster;
+    mouse: Vector2;
+    offset: Vector3;
+    intersection: Vector3;
+    objects: Object3D[];
+    hovered: Object3D | null;
+    selected: Object3D | null;
     isDown: boolean;
     rect: { x: number; y: number; width: number; height: number };
-    intersectionData: THREE.Intersection | null;
+    intersectionData: Intersection | null;
     private _enabled: boolean;
     private handlerDown: (e: MouseEvent | TouchEvent) => void;
     private handlerMove: (e: MouseEvent | TouchEvent) => void;
@@ -25,18 +33,18 @@ export default class InteractiveControls extends EventEmitter {
         return this._enabled;
     }
 
-    constructor(camera: THREE.PerspectiveCamera, el: HTMLElement) {
+    constructor(camera: PerspectiveCamera, el: HTMLElement) {
         super();
 
         this.camera = camera;
         this.el = el;
 
-        this.plane = new THREE.Plane();
-        this.raycaster = new THREE.Raycaster();
+        this.plane = new Plane();
+        this.raycaster = new Raycaster();
 
-        this.mouse = new THREE.Vector2();
-        this.offset = new THREE.Vector3();
-        this.intersection = new THREE.Vector3();
+        this.mouse = new Vector2();
+        this.offset = new Vector3();
+        this.intersection = new Vector3();
 
         this.objects = [];
         this.hovered = null;

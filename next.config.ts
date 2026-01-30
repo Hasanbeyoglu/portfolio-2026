@@ -19,6 +19,19 @@ const nextConfig: NextConfig = {
 
   compress: true,
   poweredByHeader: false,
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
+  experimental: {
+    optimizePackageImports: ['three', 'lucide-react'],
+  },
+
+  // Turbopack configuration for Next.js 16
+  turbopack: {
+    // Empty turbopack config to satisfy Next.js 16 requirement
+  },
 };
 
 export default nextConfig;

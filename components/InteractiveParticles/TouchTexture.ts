@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { Texture } from 'three';
 import { easeOutSine } from './easing';
 
 interface TouchPoint {
@@ -15,7 +15,7 @@ export default class TouchTexture {
     trail: TouchPoint[];
     canvas: HTMLCanvasElement;
     ctx: CanvasRenderingContext2D;
-    texture: THREE.Texture;
+    texture: Texture;
 
     constructor() {
         this.size = 64;
@@ -29,7 +29,7 @@ export default class TouchTexture {
         this.ctx.fillStyle = 'black';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        this.texture = new THREE.Texture(this.canvas);
+        this.texture = new Texture(this.canvas);
     }
 
     update(): void {
