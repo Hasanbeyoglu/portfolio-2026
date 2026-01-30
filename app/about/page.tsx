@@ -68,14 +68,14 @@ export default function AboutPage() {
                     </div>
 
 
-                    <div className="bento-card col-span-1 row-span-1 rounded-3xl p-6 flex flex-col justify-center items-center text-center backdrop-blur-xl bg-black/40 border border-white/10 shadow-lg hover:shadow-xl hover:bg-black/50 transition-all duration-300">
+                    <div className="glass-panel bento-card col-span-1 row-span-1 rounded-3xl p-6 flex flex-col justify-center items-center text-center border border-white/10 transition-all duration-300">
                         <MapPin className="w-8 h-8 mb-3 text-lime-400" strokeWidth={1.5} />
                         <p className="font-bold text-lg text-white">Based in</p>
                         <p className="text-gray-400">Munich, Germany</p>
                     </div>
 
 
-                    <div className="bento-card col-span-1 row-span-1 rounded-3xl p-6 flex flex-col justify-center group cursor-pointer backdrop-blur-xl bg-black/40 border border-white/10 shadow-lg hover:shadow-xl hover:bg-black/50 hover:border-lime-400/30 transition-all duration-300">
+                    <div className="glass-panel bento-card col-span-1 row-span-1 rounded-3xl p-6 flex flex-col justify-center group cursor-pointer border border-white/10 hover:border-lime-400/30 transition-all duration-300">
                         <div className="flex items-center justify-between mb-2">
                             <SquareCode className="w-8 h-8 mb-3 text-lime-400" strokeWidth={1.5} />
                             <ArrowRight className='-rotate-45 opacity-0 group-hover:opacity-100 transition-all duration-300 text-lime-400' strokeWidth={2} />

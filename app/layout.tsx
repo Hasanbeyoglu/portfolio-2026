@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 import Navigation from "@/components/Navigation";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -80,10 +81,13 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <CustomCursor />
+        <AnimatedBackground />
         {children}
         <Navigation />
       </body>
     </html>
   );
 }
+
+
 
